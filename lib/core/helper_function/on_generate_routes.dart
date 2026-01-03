@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fruits_apps_dashboard/features/views/dashboard_view.dart';
+import 'package:fruits_apps_dashboard/features/dashboard/views/dashboard_view.dart';
 
 Route onGenerateRoutes(RouteSettings settings) {
   switch (settings.name) {

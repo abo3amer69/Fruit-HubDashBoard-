@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_apps_dashboard/core/helper_function/on_generate_routes.dart';
-import 'package:fruits_apps_dashboard/features/views/dashboard_view.dart';
+import 'package:fruits_apps_dashboard/features/dashboard/views/dashboard_view.dart';
 
 void main() {
   runApp(const FruitHupDashBoard());
