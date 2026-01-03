@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:fruits_apps_dashboard/features/add_product/presentation/views/add_product_view.dart';
 import 'package:fruits_apps_dashboard/features/dashboard/views/dashboard_view.dart';
 
 Route onGenerateRoutes(RouteSettings settings) {
   switch (settings.name) {
     case DashboardView.routeName:
       return MaterialPageRoute(builder: (context) => const DashboardView());
+
+      case AddProductView.routeName:
+        return MaterialPageRoute(builder: (context) => const AddProductView());
 
       
     default:
