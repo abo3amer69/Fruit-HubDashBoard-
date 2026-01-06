@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:fruits_apps_dashboard/core/widgets/custom_button.dart';
 import 'package:fruits_apps_dashboard/core/widgets/custom_text_form_field.dart';
+import 'package:fruits_apps_dashboard/features/add_product/domain/entities/add_product_input_entity.dart';
 import 'package:fruits_apps_dashboard/features/add_product/presentation/views/widget/custom_check_box.dart';
 import 'package:fruits_apps_dashboard/features/add_product/presentation/views/widget/image_product.dart';
 import 'package:fruits_apps_dashboard/features/add_product/presentation/views/widget/is_featured_check_box.dart';
@@ -15,6 +19,11 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
 
+  late String name, code, description;
+  late num price;
+  File? image;
+  bool isFeatured = false;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -26,37 +35,83 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
           child: Column(
             children: [
               CustomTextFormField(
+                onSaved: (value) {
+                  name = value!;
+                },
                 hintText: 'Product Name',
                 textInputType: TextInputType.text,
               ),
               SizedBox(height: 16),
 
               CustomTextFormField(
+                onSaved: (value) {
+                  num.parse(value!);
+                },
                 hintText: 'Product Price',
                 textInputType: TextInputType.number,
               ),
               SizedBox(height: 16),
               CustomTextFormField(
+                onSaved: (value) {
+                  code = value!.toLowerCase();
+                },
                 hintText: 'Product Code',
                 textInputType: TextInputType.number,
               ),
               SizedBox(height: 16),
               CustomTextFormField(
+                onSaved: (value) {
+                  description = value!;
+                },
                 hintText: 'Product Description',
                 textInputType: TextInputType.text,
                 maxLines: 5,
               ),
               SizedBox(height: 16),
-               IsFeaturedCheckBox(onChanged: (value)
-              {}),
+              IsFeaturedCheckBox(
+                onChanged: (value) {
+                  isFeatured = value;
+                },
+              ),
               SizedBox(height: 16),
-              ImageProduct(onFileChanged: (value) {}),
-              
-             
+              ImageField(
+                onFileChanged: (image) {
+                  this.image = image;
+                },
+              ),
+              SizedBox(height: 24),
+              CustomButton(
+                onPressed: () {
+                  if (image != null) {
+                    if (_formKey.currentState!.validate()) {
+                      _formKey.currentState!.save();
+                      AddProductInputEntity input= AddProductInputEntity(
+                        name: name,
+                        code: code,
+                        description: description,
+                        price: price,
+                        image: image!,
+                        isFeatured: isFeatured,
+                      );
+                    } else {
+                      autovalidateMode = AutovalidateMode.always;
+                      setState(() {});
+                    }
+                  } else {
+                    showError(context);
+                  }
+                },
+                text: 'Add Product',
+              ),
+              SizedBox(height: 24),
             ],
           ),
         ),
       ),
     );
+  }
+
+  void showError(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Please select an image')));
   }
 }

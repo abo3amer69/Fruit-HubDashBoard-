@@ -4,17 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
-class ImageProduct extends StatefulWidget {
-  const ImageProduct({super.key, required this.onFileChanged});
+class ImageField extends StatefulWidget {
+  const ImageField({super.key, required this.onFileChanged});
 
 
   final ValueChanged<File?> onFileChanged;
 
   @override
-  State<ImageProduct> createState() => _ImageProductState();
+  State<ImageField> createState() => _ImageFieldState();
 }
 
-class _ImageProductState extends State<ImageProduct> {
+class _ImageFieldState extends State<ImageField> {
   bool isLoading = false;
   File? fileImage;
   @override
@@ -53,7 +53,7 @@ class _ImageProductState extends State<ImageProduct> {
               visible: fileImage != null,
               child: IconButton(onPressed: () {
                 fileImage = null;
-                widget.onFileChanged(fileImage!);
+                widget.onFileChanged(fileImage);
                 setState(() {
                   
                 });
