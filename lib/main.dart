@@ -11,6 +11,7 @@ class FruitHupDashBoard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: DashboardView.routeName,
       onGenerateRoute: onGenerateRoutes,
     );
