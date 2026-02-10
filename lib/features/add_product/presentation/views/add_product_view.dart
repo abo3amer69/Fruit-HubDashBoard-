@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruits_apps_dashboard/core/repos/images_repo/images_repo.dart';
+import 'package:fruits_apps_dashboard/core/repos/product_repo.dart/product_repo.dart';
+import 'package:fruits_apps_dashboard/core/services/get_it_services.dart';
 import 'package:fruits_apps_dashboard/core/widgets/build_app_bar.dart';
+import 'package:fruits_apps_dashboard/features/add_product/presentation/manager/cubit/add_product_cubit.dart';
 import 'package:fruits_apps_dashboard/features/add_product/presentation/views/widget/add_product_view_body.dart';
 
 class AddProductView extends StatelessWidget {
@@ -10,11 +15,14 @@ class AddProductView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: buildAppBar(
-        'Add Product',
+      appBar: buildAppBar('Add Product'),
+      body: BlocProvider(
+        create: (context) => AddProductCubit(
+          getIt.get<ImagesRepo>(),
+          getIt.get<ProductRepo>(),
+        ),
+        child: AddProductViewBody(),
       ),
-      body: AddProductViewBody(),
     );
   }
-
 }
