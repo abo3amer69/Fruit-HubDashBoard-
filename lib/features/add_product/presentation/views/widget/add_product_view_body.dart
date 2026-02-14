@@ -50,7 +50,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
 
               CustomTextFormField(
                 onSaved: (value) {
-                  num.parse(value!);
+                  price = num.parse(value!); 
                 },
                 hintText: 'Product Price',
                 textInputType: TextInputType.number,
